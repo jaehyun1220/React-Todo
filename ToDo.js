@@ -20,8 +20,8 @@ export default class ToDo extends Component {
                  };
 
                  render() {
-                   const { isCompleted, isEditing, toDoValue } = this.state;
-                   const { text, id, deleteToDo } = this.props;
+                   const { isEditing, toDoValue } = this.state;
+                   const { text, id, deleteToDo, isCompleted } = this.props;
                    return (
                      <View style={styles.container}>
                        <View style={styles.column}>
@@ -38,11 +38,9 @@ export default class ToDo extends Component {
                          {isEditing ? (
                            <TextInput
                              style={[
-                               styles.input,
-                               styles.text,
-                               isCompleted
-                                 ? styles.completedText
-                                 : styles.uncompletedText
+                                 styles.input,
+                                styles.text,
+                                isCompleted ? styles.completedText : styles.uncompletedText
                              ]}
                              value={toDoValue}
                              multiline={true}
@@ -54,11 +52,11 @@ export default class ToDo extends Component {
                            <Text
                              style={[
                                styles.text,
-                               isCompleted
-                                 ? styles.completedText
-                                 : styles.uncompletedText
+                               isCompleted ? styles.completedText : styles.uncompletedText
                              ]}
-                           ></Text>
+                           >
+                             {text}
+                           </Text>
                          )}
                        </View>
                        {isEditing ? (
@@ -76,7 +74,8 @@ export default class ToDo extends Component {
                                <Text style={styles.actionText}>✏</Text>
                              </View>
                            </TouchableOpacity>
-                           <TouchableOpacity onPressOut={(event) => {
+                           <TouchableOpacity
+                           onPressOut={event => {
                                event.stopPropagation;
                                deleteToDo(id);
                                }}>
@@ -90,14 +89,9 @@ export default class ToDo extends Component {
                    );
                  }
                  _toggleComplete = (event) => {
-                     event.stopPropagation();
-                   const {
-                     idCompleted,
-                     uncompleteToDo,
-                     completeToDo,
-                     id
-                   } = this.props;
-                   if (idCompleted) {
+                   event.stopPropagation();
+                   const { isCompleted, uncompleteToDo, completeToDo, id } = this.props;
+                   if (isCompleted) {
                      uncompleteToDo(id);
                    } else {
                      completeToDo(id);
@@ -112,9 +106,7 @@ export default class ToDo extends Component {
                    const { toDoValue } = this.state;
                    const { id, updateToDo } = this.props;
                    updateToDo(id, toDoValue);
-                   this.setState({
-                     isEditing: false
-                   });
+                   this.setState({ isEditing: false });
                  };
                  _controllInput = text => {
                    this.setState({ toDoValue: text });
@@ -122,61 +114,58 @@ export default class ToDo extends Component {
                }
 
 const styles = StyleSheet.create({
-    container: {
-        width : '100%',
-        borderBottomColor: "#f5f5f5",
-        borderBottomWidth: 1,
-        flexDirection : "row",
-        alignItems: "center",
-        justifyContent : "space-between"
-
-    },
-    text: {
-        fontWeight: "600",
-        fontSize : 20,
-        marginVertical : 20,
-        color:'red',
-        width : width / 2 
-    },
-    circle: {
-        width : 30,
-        height : 30,
-        borderRadius : 15,
-        borderWidth : 5,
-        marginRight : 20
-    },
-    completedCircle : {
-        borderColor: "#ffb3b9"
-    },
-    uncompletedCircle : {
-        borderColor: "#ff3848"
-    },
-    completedText : {
-        color:"#a6a6a6",
-        textDecorationLine: 'line-through'
-    },
-    uncompletedText: {
-        color: "#2d2d2d"
-    },
-    column: {
-        width : width / 2,
-        flexDirection : 'row',
-        alignItems : 'center'
-    },
-    actions: {
-        flexDirection : "row"
-    },
-    actionContainer : {
-        marginVertical : 10,
-        marginHorizontal : 10,
-    },
-    actionText : {
-        fontSize : 20
-    },
-    input : {
-        //marginVertical : 15,
-        width : width /2 
-
-    }
-
-})
+  container: {
+    width: width - 50,
+    paddingRight:20,
+    paddingLeft:20,
+    borderBottomColor: "#f5f5f5",
+    borderBottomWidth: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  text: {
+    fontWeight: "400",
+    fontSize: 20,
+    marginVertical: 20
+  },
+  circle: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    borderWidth: 5,
+    marginRight: 20
+  },
+  completedCircle: {
+    borderColor: "#ffb3b9"
+  },
+  uncompletedCircle: {
+    borderColor: "#ff3848"
+  },
+  completedText: {
+    color: "#a6a6a6",
+    textDecorationLine: "line-through"
+  },
+  uncompletedText: {
+    color: "#2d2d2d"
+  },
+  column: {
+      flexDirection: "row",
+      alignItems: "center",
+      width: width / 2
+  },
+  actions: {
+    flexDirection: "row"
+  },
+  actionContainer: {
+    marginVertical: 10,
+    marginHorizontal: 10
+  },
+  actionText: {
+    fontSize: 20
+  },
+  input: {
+    width: width / 2,
+    marginVertical : 15,
+  }
+});

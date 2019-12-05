@@ -1,5 +1,15 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar, TextInput, Dimensions, Platform, ScrollView } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+  TextInput,
+  Dimensions,
+  Platform,
+  ScrollView,
+  AsyncStorage
+} from "react-native";
 import { AppLoading } from 'expo';
 import ToDo from './ToDo';
 import uuidv1 from 'uuid/v1';
@@ -37,7 +47,9 @@ export default class App extends React.Component {
             onSubmitEditing={this._addToDo}
           />
           <ScrollView contentContainerStyle={styles.toDos}>
-            {Object.values(toDos).reverse().map(toDo => (
+            {Object.values(toDos)
+            .reverse()
+            .map(toDo => (
               <ToDo
                 key={toDo.id}
                 deleteToDo={this._deleteToDo}
@@ -54,20 +66,18 @@ export default class App extends React.Component {
   };
   _controllNewToDo = text => {
     this.setState({
-      newTodo : text
+      newToDo: text
     });
   };
   _loadToDos = async () => {
     try {
       const toDos = await AsyncStorage.getItem('toDos');
       const parsedToDos = JSON.parse(toDos);
-      this.setState({ loadedToDos: true, toDos: parsedToDos });
+      this.setState({ loadedToDos: true, toDos: parsedToDos || {} });
     } catch(err) {
       console.log(err)
     }
-    this.setState({
-      loadedToDos : true
-    });
+    
   };
   _addToDo = () => {
     const { newToDo } = this.state;
@@ -95,9 +105,9 @@ export default class App extends React.Component {
       })
     }
   }
-  _deleteToDo = (id) => {
+  _deleteToDo = id => {
     this.setState(prevState => {
-      const toDos =prevState.toDos;
+      const toDos = prevState.toDos;
       delete toDos[id];
       const newState = {
         ...prevState,
@@ -145,10 +155,7 @@ export default class App extends React.Component {
         ...prevState,
         toDos: {
           ...prevState.toDos,
-          [id]: {
-            ...prevState.toDos[id],
-            text: text
-          }
+          [id]: {...prevState.toDos[id], text: text }
         }
       };
       this._saveToDos(newState.toDos);
@@ -177,7 +184,7 @@ const styles = StyleSheet.create({
     backgroundColor : "white",
     padding : 20,
     flex : 1,
-    width : width - 50,
+    width : width - 25,
     borderTopLeftRadius : 10,
     borderTopRightRadius : 10,
     ...Platform.select({
@@ -193,8 +200,8 @@ const styles = StyleSheet.create({
     })
   },
   input : {
-    paddingTop :20,
-    paddingBottom :20,
+    padding:20,
+    //paddingBottom :20,
     borderBottomColor : "#f5f5f5",
     borderBottomWidth : 1,
     fontSize : 25
