@@ -34,7 +34,7 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <StatusBar barstyle="light-content" />
-        <Text style={styles.title}>Kawai To Do</Text>
+        <Text style={styles.title}>To-Do!</Text>
         <View style={styles.card}>
           <TextInput
             style={styles.input}
@@ -170,43 +170,46 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f23657',
-    alignItems: 'center'
+    backgroundColor: "#f85f73",
+    alignItems: "center"
   },
   title: {
     color: "white",
-    fontSize:30,
-    marginTop: 50,
-    marginBottom : 30,
-    fontWeight : "200"
+    fontSize: 52,
+    marginTop: 150,
+    marginBottom: 30,
+    fontWeight: "200",
+    textTransform: "uppercase",
+    flex: 0.5
   },
   card: {
-    backgroundColor : "white",
-    padding : 20,
-    flex : 1,
-    width : width - 25,
-    borderTopLeftRadius : 10,
-    borderTopRightRadius : 10,
+    backgroundColor: "white",
+    padding: 20,
+    flex: 1,
+    width: width - 25,
+
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     ...Platform.select({
-      ios : {
-        shadowColor : "rgb(50, 50, 50)",
-        shadowOpacity : 0.5,
-        shadowRadius : 5,
-        shadowOffset : {height : -1, width : 0}
+      ios: {
+        shadowColor: "rgb(50, 50, 50)",
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        shadowOffset: { height: -1, width: 0 }
       },
-      android : {
-        elevation : 3
+      android: {
+        elevation: 3
       }
     })
   },
-  input : {
-    padding:20,
+  input: {
+    padding: 20,
     //paddingBottom :20,
-    borderBottomColor : "#f5f5f5",
-    borderBottomWidth : 1,
-    fontSize : 25
+    borderBottomColor: "#f5f5f5",
+    borderBottomWidth: 1,
+    fontSize: 25
   },
   toDos: {
-    alignItems: 'center'
+    alignItems: "center"
   }
 });

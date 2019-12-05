@@ -116,8 +116,8 @@ export default class ToDo extends Component {
 const styles = StyleSheet.create({
   container: {
     width: width - 50,
-    paddingRight:20,
-    paddingLeft:20,
+    paddingRight: 20,
+    paddingLeft: 20,
     borderBottomColor: "#f5f5f5",
     borderBottomWidth: 1,
     flexDirection: "row",
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     borderColor: "#ffb3b9"
   },
   uncompletedCircle: {
-    borderColor: "#ff3848"
+    borderColor: "#f85f73"
   },
   completedText: {
     color: "#a6a6a6",
@@ -150,9 +150,9 @@ const styles = StyleSheet.create({
     color: "#2d2d2d"
   },
   column: {
-      flexDirection: "row",
-      alignItems: "center",
-      width: width / 2
+    flexDirection: "row",
+    alignItems: "center",
+    width: width / 2
   },
   actions: {
     flexDirection: "row"
@@ -166,6 +166,6 @@ const styles = StyleSheet.create({
   },
   input: {
     width: width / 2,
-    marginVertical : 15,
+    marginVertical: 15
   }
 });
